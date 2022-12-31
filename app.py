@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify, render_template, redirect, flash
+from flask import Flask, request, jsonify, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
-from forms import RegisterUser
+from forms import RegisterUser, Login
 from sqlalchemy.exc import IntegrityError
 
 
@@ -36,15 +36,9 @@ def register():
         first_name = form.first_name.data
         last_name = form.last_name.data
         
-        new_user = User(
-            username=username,
-            password=password,
-            email=email,
-            first_name= first_name,
-            last_name = last_name
-        )
+        register_new_user = User.register_user(username, password, email, first_name, last_name)
         
-        db.session.add(new_user)
+        db.session.add(register_new_user)
             
         try:
             db.session.commit()
@@ -56,3 +50,27 @@ def register():
         return redirect('/')
     return render_template('register.html', form=form)
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = Login()
+    
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        
+        user = User.authenticate_user(username, password)
+        if user:
+            flash(f'Welcome back {user.first_name}')
+            session['username'] = user.username
+            return redirect('/')
+        else:
+            form.username.errors = ['INVALID PASSORD!']
+            
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    session.pop('username')
+    flash('Goodbye')
+    return redirect('/')

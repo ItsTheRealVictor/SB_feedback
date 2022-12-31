@@ -3,8 +3,19 @@
     <body>
         {% block body %}
             <h1>hello it is the hompage</h1>
+                 {% if session['username'] %}
+                    <h3>Currently logged in as {{session['username']}}</h3>
+                 {% else %}
+                    <h3>Not logged in yet</h3>
+                 {% endif %}
             <form action="/register">
                 <button>Register a new user!</button>
+            </form>
+            <form action="/login">
+                <button>Login!</button>
+            </form>
+            <form action="/logout">
+                <button>Logout!</button>
             </form>
 
             <h1>Here are our users</h1>
