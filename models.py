@@ -15,3 +15,6 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
+
+    def __repr__(self):
+        return f'{self.first_name} {self.last_name}'
