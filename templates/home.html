@@ -18,6 +18,12 @@
                 <button>Logout! </button>
             </form>
 
+            {% if session['username'] %}
+                <form action="/users/{{session['username']}}">
+                    <button>See my info</button>
+                </form>
+            {% endif %}
+
             <h1>Here are our users</h1>
             <ul>
                 {% for user in users %}

@@ -76,5 +76,18 @@ def logout():
 
 @app.route('/secret')
 def secret():
-    return render_template('secret.html')
+    if 'username' not in session:
+        flash('You need to be logged in to see this')
+        return redirect('/')
+    else:
+        return render_template('secret.html')
 
+@app.route('/users/<username>', methods=['GET', 'POST'])
+def show_user_info(username):
+    user = User.query.get_or_404(username)
+    if 'username' not in session:
+        flash('You need to be logged in to see this')
+        return redirect('/')
+    else:
+        return render_template('user_info.html', user=user)
+    
