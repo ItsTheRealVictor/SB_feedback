@@ -50,7 +50,6 @@ def register():
         return redirect('/')
     return render_template('register.html', form=form)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = Login()
@@ -63,7 +62,7 @@ def login():
         if user:
             flash(f'Welcome back {user.first_name}')
             session['username'] = user.username
-            return redirect('/')
+            return redirect('/secret')
         else:
             form.username.errors = ['INVALID PASSORD!']
             
@@ -74,3 +73,8 @@ def logout():
     session.pop('username')
     flash('Goodbye')
     return redirect('/')
+
+@app.route('/secret')
+def secret():
+    return render_template('secret.html')
+
