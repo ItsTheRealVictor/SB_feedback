@@ -10,6 +10,16 @@
                 <li>last name: {{user.last_name}}</li>
                 <li>email:{{user.email}}</li>
             </ul>
+            <form action="/users/{{user.username}}/feedback/add">
+                {% include '/includes/buttons/_feedbackButton.html'   %}
+            </form>
+
+            <h1>Feedback posted by {{user.username}}</h1>
+            {% for feedback in user.feedback %}
+                <h1>{{feedback.title}}</h1>
+            {% endfor %}
+
+
         {% endblock %}
     </body>
 </html>

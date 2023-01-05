@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
-from forms import RegisterUser, Login
+from models import db, connect_db, User, Feedback
+from forms import RegisterUserForm, LoginForm, FeedbackForm
 from sqlalchemy.exc import IntegrityError
 
 
@@ -28,7 +28,7 @@ def home():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterUser()
+    form = RegisterUserForm()
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
@@ -52,7 +52,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = Login()
+    form = LoginForm()
     
     if form.validate_on_submit():
         username = form.username.data
@@ -91,3 +91,23 @@ def show_user_info(username):
     else:
         return render_template('user_info.html', user=user)
     
+@app.route('/users/<username>/feedback/add', methods=['GET','POST'])
+def add_feedback(username):
+    form = FeedbackForm()
+    user = User.query.get_or_404(username)
+     
+    
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+        
+        new_feedback = Feedback(title=title, content=content, username=session['username'])
+        # breakpoint()
+        db.session.add(new_feedback)
+        db.session.commit()
+        flash('FEEDBACK CREATED')
+        return redirect(f'/users/{user.username}')
+        
+        
+    
+    return render_template('add_feedback.html', form=form, user=user)
