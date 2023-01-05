@@ -16,10 +16,12 @@
                 </form>
             {% endif %}
 
-            <h1>Here are our users</h1>
+            <h1>Feedback we have received</h1>
             <ul>
-                {% for user in users %}
-                    <li>{{user}}</li>
+                {% for feedback in all_feedback %}
+                {% include '/includes/cards/_feedbackCard.html'   %}
+
+
                 {% endfor %}
             </ul>
         {% endblock %}

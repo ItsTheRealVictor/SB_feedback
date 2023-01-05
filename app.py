@@ -23,8 +23,8 @@ app.app_context().push()
 
 @app.route('/')
 def home():
-    users = User.query.all()
-    return render_template('home.html', users=users)
+    all_feedback = Feedback.query.all()
+    return render_template('home.html', all_feedback=all_feedback)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
