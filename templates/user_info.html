@@ -16,7 +16,7 @@
 
             <h1>Feedback posted by {{user.username}}</h1>
             {% for feedback in user.feedback %}
-                <h1>{{feedback.title}}</h1>
+                {% include '/includes/cards/_feedbackCard.html'   %}
             {% endfor %}
 
 

@@ -1,3 +1,16 @@
 body{
     background-color: steelblue;
 }
+
+.card{
+    background-color: rgb(150, 136, 241)
+}
+.card-title{
+    color:rgb(255, 203, 203) !important;
+}
+.card-subtitle{
+    color:black !important;
+}
+.navbar{
+    background-color:rgb(0, 91, 165) !important;
+}

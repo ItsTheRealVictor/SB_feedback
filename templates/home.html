@@ -8,15 +8,7 @@
                  {% else %}
                     <h3>Not logged in yet</h3>
                  {% endif %}
-            <form action="/register">
-                <button>Register a new user!</button>
-            </form>
-            <form action="/login">
-                <button>Login!</button>
-            </form>
-            <form action="/logout">
-                <button>Logout! </button>
-            </form>
+
 
             {% if session['username'] %}
                 <form action="/users/{{session['username']}}">

@@ -15,6 +15,7 @@
     {% endblock %}
 </head>
 <body>
+    {% include '/_navbar.html'   %}
     <div class="container" style="margin-top: 2em">
         {% for msg in get_flashed_messages() %}
         <div class="alert alert-success">{{ msg }}</div>
