@@ -5,10 +5,10 @@
             <h6 class="card-subtitle text-muted">this is the date</h6>
             <p class="card-text">{{feedback.content}}</p>
             {% if session['username'] == feedback.username %}
-            <form style="display:inline" action="/tweets/{{feedback.id}}/edit" method="POST">
+            <form style="display:inline" action="/users/{{feedback.username}}/{{feedback.id}}/edit" method="POST">
                 <button class="btn btn-sm btn-primary">Edit Feedback!</button>
             </form>
-            <form style="display:inline" action="/tweets/{{feedback.id}}/delete" method="POST">
+            <form style="display:inline" action="/users/{{feedback.username}}/{{feedback.id}}/delete" method="POST">
                 <button class="btn btn-sm btn-danger">Delete Feedback!</button>
             </form>
             {% endif %} 

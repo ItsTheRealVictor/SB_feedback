@@ -111,3 +111,16 @@ def add_feedback(username):
         
     
     return render_template('add_feedback.html', form=form, user=user)
+
+@app.route('/users/<username>/<int:feedback_id>/delete', methods=['POST'])
+def delete_feedback(username, feedback_id):
+    username = User.query.get_or_404(username)
+    feedback = Feedback.query.get_or_404(feedback_id)
+    if feedback.username == session['username']:
+        db.session.delete(feedback)
+        db.session.commit()
+        flash('FEEDBACK DELETED')
+        return redirect(f'/users/{username.username}')
+    
+    
+    return render_template('delete_feedback.html', username=username, feedback=feedback)
