@@ -3,8 +3,7 @@
     <body>
         {% block body%}
         <h1>EDIT FEEDBACK</h1>
-        <h1>{{username}}</h1>
-        <h1>{{feedback_id}}</h1>
+        {% include 'includes/forms/_feedbackForm.html'   %}
         {% endblock body%}
     </body>
 </html>

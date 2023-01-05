@@ -3,6 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Feedback
 from forms import RegisterUserForm, LoginForm, FeedbackForm
 from sqlalchemy.exc import IntegrityError
+from werkzeug.exceptions import Unauthorized
 from datetime import datetime
 
 
@@ -129,3 +130,24 @@ def delete_feedback(username, feedback_id):
     
     
     return render_template('delete_feedback.html', username=username, feedback=feedback)
+
+@app.route('/users/<username>/<int:feedback_id>/update', methods=['GET', 'POST'])
+def update_feedback(username, feedback_id):
+    """Show update-feedback form and process it."""
+
+    feedback = Feedback.query.get(feedback_id)
+
+    if "username" not in session or feedback.username != session['username']:
+        raise Unauthorized()
+
+    form = FeedbackForm()
+
+    if form.validate_on_submit():
+        feedback.title = form.title.data
+        feedback.content = form.content.data
+
+        db.session.commit()
+
+        return redirect(f"/users/{feedback.username}")
+
+    return render_template("edit_feedback.html", form=form, feedback=feedback)

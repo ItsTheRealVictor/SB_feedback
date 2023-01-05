@@ -6,7 +6,7 @@
             <h6 class="card-subtitle text-muted my-1">{{feedback.creation_date.strftime('%b %d %Y %H:%M')}}</h6>
             <p class="card-text">{{feedback.content}}</p>
             {% if session['username'] == feedback.username %}
-            <form style="display:inline" action="/users/{{feedback.username}}/{{feedback.id}}/edit" method="POST">
+            <form style="display:inline" action="/users/{{feedback.username}}/{{feedback.id}}/update" method="POST">
                 <button class="btn btn-sm btn-primary">Edit Feedback!</button>
             </form>
             <form style="display:inline" action="/users/{{feedback.username}}/{{feedback.id}}/delete" method="POST">
