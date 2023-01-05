@@ -3,7 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Feedback
 from forms import RegisterUserForm, LoginForm, FeedbackForm
 from sqlalchemy.exc import IntegrityError
-
+from datetime import datetime
 
 
 
@@ -11,8 +11,13 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'asdf'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = -1
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/feedback'
-app.config['SQLALCHEMY_BINDS'] = {'testDB': 'sqlite:///test_feedback.db'}
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/feedback'
+# app.config['SQLALCHEMY_BINDS'] = {'testDB': 'sqlite:///test_feedback.db'}
+
+# use this DB when developing from work computer
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedback.db'
+
 
 app.debug = False
 debug = DebugToolbarExtension(app)

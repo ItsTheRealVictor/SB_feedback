@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from datetime import datetime
+import time
 
 
 db = SQLAlchemy()
@@ -50,6 +52,7 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    creation_date = db.Column(db.DateTime, default=datetime.utcnow)
     
     username = db.Column(db.Text, db.ForeignKey('users.username'))
     user = db.relationship('User', backref='feedback')

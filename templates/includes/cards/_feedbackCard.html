@@ -1,8 +1,9 @@
 <div>
     <div class="card my-2">
         <div class="card-body">
-            <h5 class="card-title text-info feedback-title">{{feedback.title}}</h5>
-            <h6 class="card-subtitle text-muted">this is the date</h6>
+            <h4 class="card-title text-info feedback-title">{{feedback.title}}</h4>
+            <h5 class="card-subtitle text-muted">Posted by: {{feedback.username}}</h5>
+            <h6 class="card-subtitle text-muted my-1">{{feedback.creation_date.strftime('%b %d %Y %H:%M')}}</h6>
             <p class="card-text">{{feedback.content}}</p>
             {% if session['username'] == feedback.username %}
             <form style="display:inline" action="/users/{{feedback.username}}/{{feedback.id}}/edit" method="POST">
