@@ -13,9 +13,8 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secret')
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = -1
-print(app.config['SECRET_KEY'])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/feedback'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://postgres:admin@localhost/feedback')
 app.config['SQLALCHEMY_BINDS'] = {'testDB': 'sqlite:///test_feedback.db'}
 
 # use this DB when developing from work computer
