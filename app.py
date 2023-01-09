@@ -5,13 +5,15 @@ from forms import RegisterUserForm, LoginForm, FeedbackForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import Unauthorized
 from datetime import datetime
+import os
 
 
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'asdf'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secret')
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = -1
+print(app.config['SECRET_KEY'])
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/feedback'
 app.config['SQLALCHEMY_BINDS'] = {'testDB': 'sqlite:///test_feedback.db'}
