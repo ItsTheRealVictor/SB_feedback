@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/f
 app.config['SQLALCHEMY_BINDS'] = {'testDB': 'sqlite:///test_feedback.db'}
 
 # use this DB when developing from work computer
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedback.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedback.db'
 
 
 app.debug = False
